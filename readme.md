@@ -8,45 +8,63 @@ This project consists of a backend API developed using Node.js and Express.js, a
 
 ## Backend - Node.js (Express API)
 
-### Requirements
+### Features
 
-- [ ] **Develop a REST API using Express.js**
-- [ ] **Implement JWT-based authentication for user login**
-  - [ ] Create a `POST /register` endpoint to register a new user and store data in-memory.
-  - [ ] Create a `POST /login` endpoint to authenticate the user and return a JWT token.
+- dotenv: Loads environment variables from a .env file for secure configuration.
+- Express: Web server framework to handle HTTP requests and responses.
+- CORS: Manages cross-origin requests with custom configurations.
+- Helmet: Enhances security by setting HTTP headers to protect against common vulnerabilities.
+- Parsers: Parses incoming JSON and URL-encoded request bodies.
+- Rate Limiter: Limits request frequency to protect against DoS attacks.
+- Compression: Reduces response size for faster data transfer.
+- API Routes: Defines API endpoints under **versioned routes (/api/v1)**.
+- Error Handler: Catches and handles errors, ensuring graceful responses
+
+### Original Requirements Checklist
+
+- [x] **Develop a REST API using Express.js**
+- [x] **Implement JWT-based authentication for user login**
+  - [x] Create a `POST /register` endpoint to register a new user and store data in-memory.
+  - [x] Create a `POST /login` endpoint to authenticate the user and return a JWT token.
 - [ ] **Create the following endpoints**:
-  - [ ] `GET /products` – Fetch a list of available products (store data in-memory).
+  - [x] `GET /products` – Fetch a list of available products (store data in-memory).
   - [ ] `POST /order` – Create an order (authenticated users only, store data in-memory).
-  - [ ] `GET /stores` – Fetch store locations (integrate Google Maps API to get store details).
-- [ ] **Implement proper error handling and input validation**:
-  - [ ] Validate user inputs during registration and login.
-  - [ ] Handle API errors (e.g., missing data, unauthorized access, etc.).
-- [ ] **Implement caching for product listings (in-memory caching)**:
-  - [ ] Cache the product list to improve performance.
-- [ ] **Use environment variables for sensitive data** (e.g., JWT secret, Google Maps API key).
+  - [x] `GET /stores` – Fetch store locations (integrate Google Maps API to get store details).
+- [x] **Implement proper error handling and input validation**:
+  - [x] Validate user inputs during registration and login.
+  - [x] Handle API errors (e.g., missing data, unauthorized access, etc.).
+- [x] **Implement caching for product listings (in-memory caching)**:
+  - [x] Cache the product list to improve performance.
+- [x] **Use environment variables for sensitive data** (e.g., JWT secret, Google Maps API key).
 - [ ] **Bonus Points**:
-  - [ ] Implement rate limiting for APIs.
+  - [x] Implement rate limiting for APIs.
   - [ ] Add unit tests using Jest.
 
 ---
 
 ## Frontend - React.js Application
 
+### Features
+
+- Shadcn Components: A component library for building flexible and customizable UI components in React.
+- Tailwind CSS: A utility-first CSS framework for rapidly building custom designs.
+- Fetch API: A modern way to make HTTP requests in JavaScript for fetching resources.
+- Redux Toolkit: A set of tools for efficient Redux development, including state management and middleware integration
+
 ### Requirements
 
 - [x] **Develop a single-page application using React.js**
 - [x] **Use Redux Toolkit or React Context API for state management**
-  - [x] Utilized Redux Toolkit
-- [ ] **Implement the following pages**:
-  - [ x ] **Login Page**: Allow users to authenticate.
-  - [ x ] **Product Listing Page**: Display available products with filters.
-  - [ ] **Order Page**: Let users place orders.
-  - [ ] **Store Locator Page**: Display store locations on Google Maps.
-- [ ] **Fetch data from the backend using Axios or Fetch API**:
+- [x] **Implement the following pages**:
+  - [x] **Login Page**: Allow users to authenticate.
+  - [x] **Product Listing Page**: Display available products with filters.
+  - [x] **Order Page**: Let users place orders.
+  - [x] **Store Locator Page**: Display store locations on Google Maps.
+- [x] **Fetch data from the backend using Axios or Fetch API**:
   - [ ] Get products and store locations from the API.
   - [ ] Send order data to the backend.
-- [ ] **Use React Router for navigation**:
-  - [ ] Setup routes for Login, Product Listing, Order, and Store Locator pages.
+- [x] **Use React Router for navigation**:
+  - [x] Setup routes for Login, Product Listing, Order, and Store Locator pages.
 
 ---
 
@@ -77,6 +95,19 @@ This project consists of a backend API developed using Node.js and Express.js, a
    ```bash
    npm start
    ```
+
+### Run Server using Concurrently
+
+1. Go back to root folder
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. start both client and server
+
+```bash
+  npm run dev
+```
 
 ---
 
