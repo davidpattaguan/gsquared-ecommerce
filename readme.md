@@ -34,11 +34,12 @@ This project consists of a backend API developed using Node.js and Express.js, a
 
 ### Requirements
 
-- [ ] **Develop a single-page application using React.js**
-- [ ] **Use Redux Toolkit or React Context API for state management**
+- [ x ] **Develop a single-page application using React.js**
+- [ x ] **Use Redux Toolkit or React Context API for state management**
+  - [ x ] Utilized Redux Toolkit
 - [ ] **Implement the following pages**:
-  - [ ] **Login Page**: Allow users to authenticate.
-  - [ ] **Product Listing Page**: Display available products with filters.
+  - [ x ] **Login Page**: Allow users to authenticate.
+  - [ x ] **Product Listing Page**: Display available products with filters.
   - [ ] **Order Page**: Let users place orders.
   - [ ] **Store Locator Page**: Display store locations on Google Maps.
 - [ ] **Fetch data from the backend using Axios or Fetch API**:
