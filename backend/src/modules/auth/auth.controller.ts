@@ -1,19 +1,20 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { createUser, getUserByUsername } from "../users/users.model";
-import { config } from "../../config";
+import { config } from "../../config/config";
+import { asyncHandler as CatchAsync } from "../../utilities/async-handler";
 
-export const register = (req: Request, res: Response): void => {
+export const register = CatchAsync(async (req: Request, res: Response) => {
   const { username, password } = req.body;
   const newUser = createUser(username, password);
-  res.status(201).json({
+  return res.status(201).json({
     statusCode: 201,
     message: "Successfully Registered User!",
     result: newUser,
   });
-};
+});
 
-export const login = (req: Request, res: Response): void => {
+export const login = CatchAsync(async (req: Request, res: Response) => {
   const { username, password } = req.body;
   const user = getUserByUsername(username);
 
@@ -23,5 +24,5 @@ export const login = (req: Request, res: Response): void => {
   }
 
   const token = jwt.sign({ username }, config.jwtSecret, { expiresIn: "1h" });
-  res.status(200).json({ user: { username }, token });
-};
+  res.status(200).json({ user: { username }, accessToken: token });
+});

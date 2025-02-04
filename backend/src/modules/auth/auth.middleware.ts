@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
 export interface AuthenticatedRequest extends Request {
-  user?: { username: string }; // Dapat sigurado na may `username`
+  user?: { username?: string }; // Dapat sigurado na may `username`
 }
 
 export const authenticateJWT = (
@@ -21,7 +21,7 @@ export const authenticateJWT = (
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
       username: string;
     };
-    req.user = decoded; // Dapat siguraduhin na `username` lang ang laman
+    req.user = decoded;
     next();
   } catch (error) {
     res.status(403).json({ message: "Forbidden" });
