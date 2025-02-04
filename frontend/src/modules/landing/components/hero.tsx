@@ -23,15 +23,7 @@ export default function Hero() {
         <h1 className="mb-6 text-4xl font-bold">
           Find Your Perfect Pre-Loved Car
         </h1>
-        <Button
-          onClick={() =>
-            dispatch(
-              openModal({ type: "createDepartmentModal", data: { id: 1 } })
-            )
-          }
-        >
-          OPEN MODAL
-        </Button>
+
         <p className="mb-8 text-xl text-muted-foreground">
           Discover quality used cars at unbeatable prices
         </p>

@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type ModalType =
   | "createDepartmentModal"
-  | "EditAttendanceModal"
+  | "loginModal"
   | "DeleteAttendanceModal"
   | null;
 

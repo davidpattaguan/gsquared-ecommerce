@@ -10,7 +10,8 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 export default function Header() {
   const session = useSelector((state: RootState) => state.auth.session);
@@ -48,26 +49,21 @@ export default function Header() {
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem>
-                  <Link to="/profile" className="w-full">
-                    Profile
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link to="/settings" className="w-full">
-                    Settings
-                  </Link>
-                </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-red-600">
-                  Sign out
+                <DropdownMenuItem>
+                  <Link to="/auth/logout">Logout</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </>
         ) : (
           <>
-            <Button>Login</Button>
+            <Link
+              to="/auth/login"
+              className={cn(buttonVariants({ variant: "default" }))}
+            >
+              Login
+            </Link>
           </>
         )}
       </div>

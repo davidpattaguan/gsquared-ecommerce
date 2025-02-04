@@ -1,29 +1,27 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.tsx";
-import { BrowserRouter, Route, Routes } from "react-router";
 import LoginPage from "./modules/authentication/pages/login-page.tsx";
 import ProductsPage from "./modules/products/pages/products-page.tsx";
-import OrderPage from "./modules/orders/pages/order-page.tsx";
-import StroesPage from "./modules/stores/pages/stores-page.tsx";
-import { Provider } from "react-redux";
 import store from "./store/store.ts";
-import { Toaster } from "./components/ui/toaster.tsx";
 import ProductDetail from "./modules/products/pages/product-detail.tsx";
 import NotFoundPage from "./modules/errors/pages/not-found-page.tsx";
 import LandingPage from "./modules/landing/pages/landing-page.tsx";
 import Header from "./components/layout/header.tsx";
-import Footer from "./components/layout/footer.tsx";
+import OrderPage from "./modules/orders/pages/order-page.tsx";
+import StroesPage from "./modules/stores/pages/stores-page.tsx";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Route, Routes } from "react-router";
+import { Provider } from "react-redux";
+
 import { ModalProvider } from "./components/providers/modal-provider.tsx";
+import { Toaster } from "./components/ui/sonner.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      <Toaster />
-
       <BrowserRouter>
         <ModalProvider />
+        <Toaster position="top-right" />
         <Header />
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -35,7 +33,6 @@ createRoot(document.getElementById("root")!).render(
           {/* <Route path="/orders" element={< />} /> */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
-        <Footer />
       </BrowserRouter>
     </Provider>
   </StrictMode>

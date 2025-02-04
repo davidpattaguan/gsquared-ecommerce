@@ -21,6 +21,14 @@ import { loginUser } from "../features/slices/auth-slice";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router";
 import { AppDispatch, RootState } from "@/store/store";
+import LoginForm from "../components/forms/login-form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const formSchema = z.object({
   username: z.string(),
@@ -60,48 +68,20 @@ export default function MyForm() {
   }
 
   return (
-    <>
-      {JSON.stringify(session)}{" "}
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 max-w-3xl mx-auto py-10"
-        >
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input placeholder="shadcn" type="" {...field} />
-                </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input type="password" placeholder="Placeholder" {...field} />
-                </FormControl>
-                <FormDescription>Enter your password.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <Button type="submit">Submit</Button>
-        </form>
-      </Form>
-    </>
+    <div className="flex justify-center items-center h-[80vh] w-screen">
+      <div className="w-96">
+        <Card>
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl font-bold">
+              Welcome to ECARMMERCE
+            </CardTitle>
+            <CardDescription>Login With Your Account</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <LoginForm />
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 }

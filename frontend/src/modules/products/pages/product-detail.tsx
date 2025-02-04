@@ -1,18 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { fetchProductById } from "../features/slices/products-slice";
 import { Badge } from "@/components/ui/badge";
 import { Battery, Calendar1Icon, Gauge, PenToolIcon, Star } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import LoginButton from "@/modules/authentication/components/actions/login-button";
+import { cn } from "@/lib/utils";
 
 const ProductDetail = () => {
   const session = useSelector((state: RootState) => state.auth.session);
   // const dispatch = useDispatch();
-  // const { id } = useParams(); // Get ID from URL params
+  const { id } = useParams(); // Get ID from URL params
   // const { product, loading, error } = useSelector((state) => state.products);
 
   // useEffect(() => {
@@ -171,15 +173,19 @@ const ProductDetail = () => {
             {session ? (
               <>
                 {" "}
-                <Button size="lg" className="w-full">
+                <Link
+                  to={`/products/${id}/order`}
+                  className={cn(
+                    buttonVariants({ variant: "default" }),
+                    "w-full"
+                  )}
+                >
                   Order now
-                </Button>
+                </Link>
               </>
             ) : (
               <>
-                <Button size="lg" className="w-full">
-                  Login To Continue
-                </Button>
+                <LoginButton />
               </>
             )}
           </div>
