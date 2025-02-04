@@ -103,11 +103,27 @@ This project consists of a backend API developed using Node.js and Express.js, a
    ```bash
    npm install
    ```
-3. start both client and server
+3. Start both client and server
 
-```bash
-  npm run dev
-```
+   ```bash
+   npm run dev
+   ```
+
+### OR: Run Backend and Frontend Independently
+
+1. Navigate to the `backend` folder.
+2. Run
+
+   ```bash
+   npm run dev
+   ```
+
+3. Navigate to the `frontend` folder.
+4. Run
+
+   ```bash
+   npm run dev
+   ```
 
 ---
 
