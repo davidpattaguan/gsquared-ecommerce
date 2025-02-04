@@ -39,14 +39,11 @@ export const SignupFormSchema = z.object({
     })
     .trim(),
 });
-
 export const LoginFormSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username field must not be empty.",
-  }),
-  password: z.string().min(2, {
-    message: "Password field must not be empty.",
-  }),
+  email: z.string().min(2, { message: "Email is required." }),
+  password: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters." }),
 });
 
 export type SignupFormType = z.infer<typeof SignupFormSchema>;

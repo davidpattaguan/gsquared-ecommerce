@@ -21,7 +21,7 @@ export const createOrder = CatchAsync(
     }
 
     const newOrder: Order = {
-      user: req.user.username,
+      user: req.user.email,
       productId,
       quantity,
     };

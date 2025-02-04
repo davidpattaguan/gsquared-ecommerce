@@ -1,9 +1,24 @@
 import { Request, Response } from "express";
 import { products } from "./products.model";
 import { asyncHandler as CatchAsync } from "../../utilities/async-handler";
+import NodeCache from "node-cache";
+
+const cache = new NodeCache({ stdTTL: 300 }); // Cache for 5 minutes
 
 export const getProducts = CatchAsync(async (req: Request, res: Response) => {
-  // Get query parameters from the request (e.g., manufacturer, price, name, page, limit)
+  // Generate cache key based on query parameters
+  const cacheKey = JSON.stringify(req.query);
+
+  // Check if data exists in cache
+  const cachedData = cache.get(cacheKey);
+  if (cachedData) {
+    return res.status(200).json({
+      statusCode: 200,
+      message: "Successfully fetched products (from cache)",
+      ...cachedData,
+    });
+  }
+
   const {
     manufacturer,
     minPrice,
@@ -13,12 +28,9 @@ export const getProducts = CatchAsync(async (req: Request, res: Response) => {
     limit = 10,
     isFeatured,
   } = req.query;
-
-  // Convert page and limit to numbers
   const pageNumber = Number(page);
   const limitNumber = Number(limit);
 
-  // Filter products based on the query parameters
   let filteredProducts = products;
 
   if (manufacturer && typeof manufacturer === "string") {
@@ -41,9 +53,9 @@ export const getProducts = CatchAsync(async (req: Request, res: Response) => {
   }
 
   if (isFeatured) {
-    filteredProducts = filteredProducts.filter((product) => {
-      return product.isFeatured === true;
-    });
+    filteredProducts = filteredProducts.filter(
+      (product) => product.isFeatured === true
+    );
   }
 
   if (name && typeof name === "string") {
@@ -57,8 +69,7 @@ export const getProducts = CatchAsync(async (req: Request, res: Response) => {
   const endIndex = pageNumber * limitNumber;
   const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
 
-  // Return the paginated and filtered list of products
-  res.status(200).json({
+  const response = {
     statusCode: 200,
     message: "Successfully fetched products",
     result: paginatedProducts,
@@ -67,5 +78,10 @@ export const getProducts = CatchAsync(async (req: Request, res: Response) => {
       totalPages: Math.ceil(filteredProducts.length / limitNumber),
       totalResults: filteredProducts.length,
     },
-  });
+  };
+
+  // Store result in cache
+  cache.set(cacheKey, response);
+
+  res.status(200).json(response);
 });

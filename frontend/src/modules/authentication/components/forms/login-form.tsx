@@ -41,6 +41,10 @@ export default function LoginForm() {
 
   const form = useForm<LoginFormType>({
     resolver: zodResolver(LoginFormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   async function onSubmit(values: z.infer<typeof LoginFormSchema>) {
@@ -51,13 +55,15 @@ export default function LoginForm() {
         dispatch(closeModal());
       })
       .catch((error: any) => {
-        toast.error("Failed To Login!");
+        console.log(error, "sa form");
+        toast.error(() => <>Login Failed.</>, {
+          description: () => <>{error.message}</>,
+        });
       });
   }
 
   return (
     <>
-      {/* {JSON.stringify(session)}{" "} */}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -65,10 +71,10 @@ export default function LoginForm() {
         >
           <FormField
             control={form.control}
-            name="username"
+            name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input placeholder="shadcn" type="" {...field} />
                 </FormControl>

@@ -8,7 +8,9 @@ export const getStores = CatchAsync(async (req: Request, res: Response) => {
   let { lat, lng, radius = "5000", type = "car_dealer" } = req.query;
 
   if (!lat || !lng) {
-    return res.status(400).json({ error: "Location is required. Enable GPS." });
+    return res
+      .status(400)
+      .json({ message: "Location is required. Enable GPS." });
   }
 
   const cacheKey = `${lat},${lng},${radius},${type}`;

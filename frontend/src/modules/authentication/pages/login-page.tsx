@@ -31,7 +31,7 @@ import {
 } from "@/components/ui/card";
 
 const formSchema = z.object({
-  username: z.string(),
+  email: z.string(),
   password: z.string(),
 });
 

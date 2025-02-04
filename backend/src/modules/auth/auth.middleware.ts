@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
 export interface AuthenticatedRequest extends Request {
-  user?: { username?: string }; // Dapat sigurado na may `username`
+  user?: { email?: string }; // Dapat sigurado na may `username`
 }
 
 export const authenticateJWT = (
@@ -19,7 +19,7 @@ export const authenticateJWT = (
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
-      username: string;
+      email: string;
     };
     req.user = decoded;
     next();

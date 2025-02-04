@@ -4,26 +4,45 @@ import axios from "axios";
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (
-    credentials: { username: string; password: string },
+    credentials: { email: string; password: string },
     { rejectWithValue }
   ) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/auth/login",
-        credentials
-      );
+      const response = await fetch("http://localhost:3000/api/v1/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      if (!response.ok) {
+        console.log("Pumasok");
+        // Try to extract error message from response body
+        let errorMessage = "Failed to login";
+        try {
+          const errorData = await response.json();
+          console.log(errorData.message);
+          errorMessage = errorData.message || errorData.error || errorMessage;
+        } catch {
+          // If JSON parsing fails, use default error message
+        }
+        throw new Error(errorMessage);
+      }
+
+      const data = await response.json();
 
       const sessionData = {
-        user: response.data.user,
-        accessToken: response.data.accessToken,
+        user: data.user,
+        accessToken: data.accessToken,
         expiry: new Date().getTime() + 3600000, // Expires in 1 hour
       };
 
       sessionStorage.setItem("session", JSON.stringify(sessionData));
 
       return sessionData;
-    } catch (error) {
-      return rejectWithValue(error.response?.data || "Login failed");
+    } catch (error: any) {
+      return rejectWithValue(error instanceof Error ? error : "Login failed");
     }
   }
 );

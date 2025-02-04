@@ -49,7 +49,6 @@ const StoresPage = () => {
   return (
     <div>
       <div>
-        {/* {JSON.stringify(carStores)} */}
         <NearbyCarStores carStores={carStores} />
       </div>
     </div>
