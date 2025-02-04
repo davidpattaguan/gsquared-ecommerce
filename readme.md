@@ -91,7 +91,8 @@ This project consists of a backend API developed using Node.js and Express.js, a
    ```bash
    npm install
    ```
-3. Start the development server:
+3. Create a `.env` file and add your sensitive data ().
+4. Start the development server:
    ```bash
    npm start
    ```
