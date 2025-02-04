@@ -18,14 +18,12 @@ const StoresPage = () => {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position.coords;
-          console.log(position.coords);
+
           try {
             const response = await fetch(
               `http://localhost:3000/api/v1/stores?lat=${latitude}&lng=${longitude}&radius=5000`
             );
             const data = await response.json();
-
-            console.log("test", data.result.results);
 
             setCarStores(data.result.results);
           } catch (err) {

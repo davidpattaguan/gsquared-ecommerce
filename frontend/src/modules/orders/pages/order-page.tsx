@@ -1,8 +1,10 @@
+import { authFetch } from "@/lib/auth-fetch";
 import { RootState } from "@/store/store";
 import type React from "react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
+import { toast } from "sonner";
 
 interface OrderFormData {
   name: string;
@@ -36,11 +38,37 @@ const OrderPage: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the order data to your backend
-    console.log("Order submitted:", { carId: id, ...formData });
-    alert("Order submitted successfully!");
+
+    const productId = Number(id); // ✅ Convert id to number
+
+    if (isNaN(productId)) {
+      toast("Invalid product ID.");
+      return;
+    }
+    try {
+      const response = await fetch("http://localhost:3000/api/v1/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.accessToken}`,
+        },
+        body: JSON.stringify({
+          productId: productId,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit order");
+      }
+
+      toast("Order submitted successfully!");
+      navigate("/orders"); // Redirect after successful order
+    } catch (error) {
+      console.error("Error submitting order:", error);
+      toast("Failed to submit order. Please try again.");
+    }
   };
 
   return (

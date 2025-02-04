@@ -29,8 +29,6 @@ const ProductsPage = () => {
     );
   }
 
-  console.log(products);
-
   return (
     <Shell variant={"default"}>
       <h1 className="font-bold text-2xl">Car Listings</h1>

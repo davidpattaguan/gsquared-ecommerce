@@ -50,5 +50,8 @@ export const getOrders = CatchAsync(async (req: Request, res: Response) => {
     };
   });
 
-  res.status(200).json(populatedOrders);
+  res.status(200).json({
+    message: "Sucessfully Fetched All Orders",
+    result: populatedOrders,
+  });
 });

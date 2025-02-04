@@ -15,6 +15,8 @@ import { Provider } from "react-redux";
 
 import { ModalProvider } from "./components/providers/modal-provider.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";
+import LogoutPage from "./modules/authentication/pages/logout-page.tsx";
+import AllOrdersPage from "./modules/orders/pages/all-orders-page.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -26,8 +28,10 @@ createRoot(document.getElementById("root")!).render(
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/auth/login" element={<LoginPage />} />
+          <Route path="/auth/logout" element={<LogoutPage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/orders" element={<AllOrdersPage />} />
           <Route path="/products/:id/order" element={<OrderPage />} />
           <Route path="/stores" element={<StroesPage />} />
           {/* <Route path="/orders" element={< />} /> */}

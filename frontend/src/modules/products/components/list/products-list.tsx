@@ -30,8 +30,8 @@ export default function ProductList({
       </div>
 
       <Pagination
-        currentPage={pagination.currentPage}
-        totalPages={pagination.totalPages}
+        currentPage={pagination?.currentPage}
+        totalPages={pagination?.totalPages}
       />
     </div>
   );

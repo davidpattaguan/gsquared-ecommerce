@@ -26,6 +26,7 @@ import {
 } from "../../schemas/authentication-schema";
 import { loginUser } from "../../features/slices/auth-slice";
 import { toast } from "sonner";
+import { closeModal } from "@/features/modalSlice";
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -47,6 +48,7 @@ export default function LoginForm() {
       .unwrap()
       .then(() => {
         toast("Successfully Logged In!");
+        dispatch(closeModal());
       })
       .catch((error: any) => {
         toast.error("Failed To Login!");
