@@ -116,7 +116,25 @@ This project consists of a backend API developed using Node.js and Express.js, a
 
 ## Separate Backend and Frontend serve
 
-### Running the Servers using Concurrently
+### : Running the Backend and Frontend Independently
+
+0. Make sure that env and packages are setup fopr both frontend and backend
+
+1. Navigate to the `backend` folder.
+2. Run the command below. The backend url would be `http://localhost:3000/`
+
+   ```bash
+   npm run dev
+   ```
+
+3. Navigate to the `frontend` folder.
+4. Run the command below. The Frontend URL would be `http://localhost:5173/`
+
+   ```bash
+   npm run dev
+   ```
+
+### [Not tested on other machines] Running the Servers using Concurrently
 
 1. Go back to the root folder
 2. Install ts node
@@ -136,22 +154,6 @@ npm install -g ts-node
    npm install
    ```
 3. To start both client and server
-
-   ```bash
-   npm run dev
-   ```
-
-### : Running the Backend and Frontend Independently
-
-1. Navigate to the `backend` folder.
-2. Run
-
-   ```bash
-   npm run dev
-   ```
-
-3. Navigate to the `frontend` folder.
-4. Run
 
    ```bash
    npm run dev
