@@ -24,6 +24,8 @@ This project consists of a backend API developed using Node.js and Express.js, a
 - API Routes: Defines API endpoints under **versioned routes (/api/v1)**.
 - Error Handler: Catches and handles errors, ensuring graceful responses
 
+#### PS: Auth is a very complex topic and I'm very much aware of the practices - the auth setup here is basic due to the interest of time
+
 ### API Features
 
 - Cached Products and Stores data
