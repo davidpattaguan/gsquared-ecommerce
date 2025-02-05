@@ -161,6 +161,43 @@ npm install -g ts-node
 
 ---
 
+# Routes Overview
+
+This document provides an overview of the routes available in the application.
+
+## Frontend Route Summary
+
+| Path                  | Component          | Description                                       |
+| --------------------- | ------------------ | ------------------------------------------------- |
+| `/`                   | `LandingPage`      | Home page of the application.                     |
+| `/auth/login`         | `LoginPage`        | User login page.                                  |
+| `/auth/registration`  | `RegistrationPage` | User registration page.                           |
+| `/auth/logout`        | `LogoutPage`       | User logout page.                                 |
+| `/products`           | `ProductsPage`     | Displays a list of products.                      |
+| `/products/:id`       | `ProductDetail`    | Displays details of a specific product.           |
+| `/orders`             | `AllOrdersPage`    | Shows all user orders.                            |
+| `/products/:id/order` | `OrderPage`        | Page for placing an order for a specific product. |
+| `/stores`             | `StoresPage`       | Displays a list of stores.                        |
+| `*`                   | `NotFoundPage`     | Catch-all route for handling 404 errors.          |
+
+## Backend API Endpoints
+
+| Method | Endpoint                                                                                                     | Description                              |
+| ------ | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------- |
+| `POST` | `/api/v1/auth/register`                                                                                      | Registers a new user.                    |
+| `POST` | `/api/v1/auth/login`                                                                                         | Logs in a user.                          |
+| `POST` | `/api/v1/orders`                                                                                             | Creates a new order.                     |
+| `GET`  | `/api/v1/orders/me`                                                                                          | Retrieves the current user's orders.     |
+| `GET`  | `/api/v1/products?manufacturer=tesla&minPrice=60000&maxPrice=61900&page=1&limit=4&name=road&isFeatured=true` | Fetches products with filtering options. |
+| `GET`  | `/api/v1/stores/`                                                                                            | Retrieves the list of stores.            |
+
+## Notes
+
+- `:id` in `/products/:id` and `/products/:id/order` is a dynamic segment representing a product ID.
+- The `*` route acts as a fallback for undefined routes, rendering the `NotFoundPage` component.
+
+---
+
 ## Acknowledgments
 
 - Thanks to [Google Maps API](https://developers.google.com/maps) for providing the store locator functionality.
