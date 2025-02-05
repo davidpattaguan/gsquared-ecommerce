@@ -1,5 +1,7 @@
 # Technical Challenge - Car Ecommerce Node.js Express API and React.js Frontend
 
+![Alt text](https://github.com/davidpattaguan/gsquared-ecommerce/blob/main/product-screenshots/carmmerce.png?raw=true)
+
 ## Timeframe: February 3, 12:00 to February 5 4:30 PM
 
 ## Project Overview
