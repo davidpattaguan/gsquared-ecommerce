@@ -1,14 +1,16 @@
-# Node.js Express API and React.js Frontend
+# Technical Challenge - Car Ecommerce Node.js Express API and React.js Frontend
+
+## Timeframe: February 3, 12:00 to February 5 4:30 PM
 
 ## Project Overview
 
-This project consists of a backend API developed using Node.js and Express.js, and a frontend application built with React.js. The backend provides user authentication, product listings, and order management, while the frontend displays the product listings, allows users to log in, place orders, and locate stores on a map.
+This project consists of a backend API developed using Node.js and Express.js, and a frontend application built with React.js. The backend provides user authentication, product listings, and order management, while the frontend displays the product listings, allows users to log in, place orders, and locate stores.
 
 ---
 
 ## Backend - Node.js (Express API)
 
-### Features
+### Backend Features
 
 - dotenv: Loads environment variables from a .env file for secure configuration.
 - Express: Web server framework to handle HTTP requests and responses.
@@ -20,15 +22,21 @@ This project consists of a backend API developed using Node.js and Express.js, a
 - API Routes: Defines API endpoints under **versioned routes (/api/v1)**.
 - Error Handler: Catches and handles errors, ensuring graceful responses
 
+### API Features
+
+- Cached Products and Stores data
+- Server Side Filtering and Pagination
+- Zod Validation for Server side Validation
+
 ### Original Requirements Checklist
 
 - [x] **Develop a REST API using Express.js**
 - [x] **Implement JWT-based authentication for user login**
   - [x] Create a `POST /register` endpoint to register a new user and store data in-memory.
   - [x] Create a `POST /login` endpoint to authenticate the user and return a JWT token.
-- [ ] **Create the following endpoints**:
+- [x] **Create the following endpoints**:
   - [x] `GET /products` – Fetch a list of available products (store data in-memory).
-  - [ ] `POST /order` – Create an order (authenticated users only, store data in-memory).
+  - [x] `POST /order` – Create an order (authenticated users only, store data in-memory).
   - [x] `GET /stores` – Fetch store locations (integrate Google Maps API to get store details).
 - [x] **Implement proper error handling and input validation**:
   - [x] Validate user inputs during registration and login.
@@ -51,7 +59,7 @@ This project consists of a backend API developed using Node.js and Express.js, a
 - Fetch API: A modern way to make HTTP requests in JavaScript for fetching resources.
 - Redux Toolkit: A set of tools for efficient Redux development, including state management and middleware integration
 
-### Requirements
+### Original Requirements Checklist
 
 - [x] **Develop a single-page application using React.js**
 - [x] **Use Redux Toolkit or React Context API for state management**
@@ -61,8 +69,8 @@ This project consists of a backend API developed using Node.js and Express.js, a
   - [x] **Order Page**: Let users place orders.
   - [x] **Store Locator Page**: Display store locations on Google Maps.
 - [x] **Fetch data from the backend using Axios or Fetch API**:
-  - [ ] Get products and store locations from the API.
-  - [ ] Send order data to the backend.
+  - [x] Get products and store locations from the API.
+  - [x] Send order data to the backend.
 - [x] **Use React Router for navigation**:
   - [x] Setup routes for Login, Product Listing, Order, and Store Locator pages.
 
@@ -104,7 +112,7 @@ This project consists of a backend API developed using Node.js and Express.js, a
    ```bash
    npm install
    ```
-3. Start both client and server
+3. To start both client and server
 
    ```bash
    npm run dev
