@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import NearbyCarStores from "../components/stores-list";
+import { Shell } from "@/components/layout/shell";
 
 const StoresPage = () => {
   const [carStores, setCarStores] = useState([]);
@@ -47,11 +48,9 @@ const StoresPage = () => {
   if (error) return <>Error</>;
 
   return (
-    <div>
-      <div>
-        <NearbyCarStores carStores={carStores} />
-      </div>
-    </div>
+    <Shell variant={"default"}>
+      <NearbyCarStores carStores={carStores} />
+    </Shell>
   );
 };
 

@@ -9,7 +9,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { closeModal } from "@/features/modalSlice";
-import MyForm from "@/modules/authentication/pages/login-page";
 import LoginForm from "../forms/login-form";
 
 export const LoginModal = () => {

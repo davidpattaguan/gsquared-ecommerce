@@ -21,7 +21,7 @@ export default function ProductList({
         {products.length > 0 ? (
           <>
             {products.map((product) => (
-              <ProductCard product={product} />
+              <ProductCard key={product.id} product={product} />
             ))}
           </>
         ) : (

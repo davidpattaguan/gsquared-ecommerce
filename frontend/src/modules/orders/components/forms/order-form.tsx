@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,11 +23,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router";
-import type { AppDispatch, RootState } from "@/store/store";
+import { AppDispatch, RootState } from "@/store/store";
+import { useParams } from "react-router";
 import { useEffect } from "react";
 import { fetchProductById } from "@/modules/products/features/slices/products-slice";
-import { toast } from "sonner";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -38,101 +38,72 @@ const formSchema = z.object({
   phone: z.string().min(10, {
     message: "Please enter a valid phone number.",
   }),
-  paymentMethod: z.enum(["credit_card", "cash", "monthly"], {
-    required_error: "Please select a payment method.",
+  product: z.string({
+    required_error: "Please select a product.",
+  }),
+  quantity: z.number().min(1, {
+    message: "Quantity must be at least 1.",
   }),
 });
 
 export default function OrderFormWithImage() {
-  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       email: "",
       phone: "",
-      paymentMethod: undefined,
+      quantity: 1,
     },
   });
 
-  const session = useSelector((state: RootState) => state.auth.session);
-  useEffect(() => {
-    if (!session) {
-      navigate("/auth/login");
-    }
-  }, [session, navigate]); // Added navigate to dependencies
-
-  const dispatch = useDispatch<AppDispatch>();
-  const { id } = useParams();
-  const { product, loading, error } = useSelector(
-    (state: RootState) => state.products
-  );
-
-  useEffect(() => {
-    dispatch(fetchProductById(Number(id)));
-  }, [dispatch, id]);
-
-  if (loading) return <div className="text-center py-12">Loading...</div>;
-  if (error)
-    return <div className="text-center py-12 text-red-600">Error: {error}</div>;
-  if (!product)
-    return <div className="text-center py-12">Product not found</div>;
-
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    const productId = Number(id);
-
-    if (isNaN(productId)) {
-      toast.error("Invalid product ID");
-      return;
-    }
-
-    try {
-      const response = await fetch("http://localhost:3000/api/v1/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${session?.accessToken}`,
-        },
-        body: JSON.stringify({
-          productId,
-          name: values.name,
-          email: values.email,
-          phone: values.phone,
-          paymentMethod: values.paymentMethod,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to submit order");
-      }
-
-      toast.success("Order submitted successfully!");
-      navigate("/orders");
-    } catch (error) {
-      console.error("Error submitting order:", error);
-      toast.error("Failed to submit order. Please try again.");
-    }
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+    // Here you would typically send the order data to your server
+    alert("Order submitted successfully!");
   }
 
   return (
-    <div className="flex min-h-[95vh] flex-col-reverse lg:flex-row">
+    <div className="flex min-h-screen flex-col-reverse lg:flex-row">
       <div className="flex-1 bg-zinc-900 text-white p-8 lg:p-12">
         <div className="h-full flex flex-col justify-between">
           <div className="flex items-center text-lg font-medium mb-8">
-            {product.name}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="mr-2 h-6 w-6"
+            >
+              <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
+            </svg>
+            Your Company Name
           </div>
           <div className="relative h-48 lg:h-auto lg:flex-grow">
-            <img
-              src={product.imageUrl || "/placeholder.svg"}
+            <Image
+              src="/placeholder.svg?height=400&width=800"
               alt="Product Image"
-              className="rounded-lg object-cover h-full w-full"
+              layout="fill"
+              objectFit="cover"
+              className="rounded-lg"
             />
           </div>
-          <div>{product.description}</div>
+          <div className="mt-8">
+            <blockquote className="space-y-2">
+              <p className="text-lg">
+                &ldquo;This product has changed my life. I can&apos;t imagine
+                working without it.&rdquo;
+              </p>
+              <footer className="text-sm">Sofia Davis</footer>
+            </blockquote>
+          </div>
         </div>
       </div>
-      <div className="flex-1 p-8 lg:p-12 flex items-center justify-center">
-        <div className="w-full max-w-md">
+      <div className="flex-1 p-8 lg:p-12">
+        <div className="mx-auto max-w-md">
           <div className="space-y-2 text-center mb-8">
             <h1 className="text-2xl font-semibold tracking-tight">
               Place your order
@@ -184,27 +155,42 @@ export default function OrderFormWithImage() {
               />
               <FormField
                 control={form.control}
-                name="paymentMethod"
+                name="product"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Payment Method</FormLabel>
+                    <FormLabel>Product</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a payment method" />
+                          <SelectValue placeholder="Select a product" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="credit_card">Credit Card</SelectItem>
-                        <SelectItem value="cash">Cash</SelectItem>
-                        <SelectItem value="monthly">
-                          Monthly Payments
-                        </SelectItem>
+                        <SelectItem value="product1">Product 1</SelectItem>
+                        <SelectItem value="product2">Product 2</SelectItem>
+                        <SelectItem value="product3">Product 3</SelectItem>
                       </SelectContent>
                     </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="quantity"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Quantity</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        {...field}
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}

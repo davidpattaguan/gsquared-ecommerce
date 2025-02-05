@@ -21,6 +21,8 @@ export const authenticateJWT = (
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
       email: string;
     };
+
+    console.log(decoded);
     req.user = decoded;
     next();
   } catch (error) {

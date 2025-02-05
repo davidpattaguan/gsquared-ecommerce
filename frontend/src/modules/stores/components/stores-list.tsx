@@ -6,6 +6,7 @@ import { Star, MapPin } from "lucide-react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Shell } from "@/components/layout/shell";
+import { Button } from "@/components/ui/button";
 
 export default function NearbyCarStores({ carStores }: any) {
   mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
@@ -95,19 +96,11 @@ export default function NearbyCarStores({ carStores }: any) {
                   {selectedStore.name}
                 </h2>
                 <p className="mb-4">{selectedStore.vicinity}</p>
-                <div className="flex justify-end">
-                  <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
-                    onClick={() => openGoogleMaps(selectedStore)}
-                  >
+                <div className="flex justify-end gap-2">
+                  <Button onClick={() => openGoogleMaps(selectedStore)}>
                     Open in Google Maps
-                  </button>
-                  <button
-                    className="bg-gray-300 text-gray-800 px-4 py-2 rounded"
-                    onClick={() => setSelectedStore(null)}
-                  >
-                    Close
-                  </button>
+                  </Button>
+                  <Button onClick={() => setSelectedStore(null)}>Close</Button>
                 </div>
               </div>
             </div>

@@ -27,6 +27,7 @@ interface ProductsResponse {
 
 interface ProductsState {
   products: Product[];
+  product: Product | null; // Fixed type
   pagination: PaginationInfo;
   loading: boolean;
   error: string | null;
@@ -34,6 +35,7 @@ interface ProductsState {
 
 const initialState: ProductsState = {
   products: [],
+  product: null, // Fixed syntax (removed semicolon)
   pagination: {
     currentPage: 1,
     totalPages: 1,
@@ -56,6 +58,18 @@ export const fetchProducts = createAsyncThunk<
   return response.json();
 });
 
+export const fetchProductById = createAsyncThunk<Product, number>(
+  "products/fetchProductById",
+  async (id) => {
+    const response = await fetch(`http://localhost:3000/api/v1/products/${id}`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch product");
+    }
+    const data = await response.json();
+    return data.result;
+  }
+);
+
 const productsSlice = createSlice({
   name: "products",
   initialState,
@@ -77,6 +91,21 @@ const productsSlice = createSlice({
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "An error occurred";
+      })
+      .addCase(fetchProductById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(
+        fetchProductById.fulfilled,
+        (state, action: PayloadAction<Product>) => {
+          state.loading = false;
+          state.product = action.payload; // ✅ Directly assign the fetched product
+        }
+      )
+      .addCase(fetchProductById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Failed to fetch product";
       });
   },
 });

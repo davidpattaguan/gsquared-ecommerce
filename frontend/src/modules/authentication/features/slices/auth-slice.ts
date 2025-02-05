@@ -17,7 +17,6 @@ export const loginUser = createAsyncThunk(
       });
 
       if (!response.ok) {
-        console.log("Pumasok");
         // Try to extract error message from response body
         let errorMessage = "Failed to login";
         try {

@@ -99,7 +99,7 @@ This project consists of a backend API developed using Node.js and Express.js, a
 
 ### Run Server using Concurrently
 
-1. Go back to root folder
+1. Go back to the root folder
 2. Install dependencies:
    ```bash
    npm install

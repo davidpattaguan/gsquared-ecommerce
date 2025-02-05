@@ -85,3 +85,38 @@ export const getProducts = CatchAsync(async (req: Request, res: Response) => {
 
   res.status(200).json(response);
 });
+
+export const getProductById = CatchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    // Check cache first
+    const cacheKey = `product_${id}`;
+    const cachedProduct = cache.get(cacheKey);
+    if (cachedProduct) {
+      return res.status(200).json({
+        statusCode: 200,
+        message: "Successfully fetched product (from cache)",
+        result: cachedProduct,
+      });
+    }
+
+    const product = products.find((p) => p.id === Number(id));
+
+    if (!product) {
+      return res.status(404).json({
+        statusCode: 404,
+        message: "Product not found",
+      });
+    }
+
+    // Store in cache
+    cache.set(cacheKey, product);
+
+    res.status(200).json({
+      statusCode: 200,
+      message: "Successfully fetched product",
+      result: product,
+    });
+  }
+);

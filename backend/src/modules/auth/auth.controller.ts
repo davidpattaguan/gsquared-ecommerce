@@ -29,10 +29,15 @@ export const login = CatchAsync(async (req: Request, res: Response) => {
   const user = getUserByEmail(email);
 
   if (!user || user.password !== password) {
-    res.status(401).json({ message: "Invalid credentials" });
+    res.status(401).json({ statusCode: 401, message: "Invalid credentials" });
     return;
   }
 
   const token = jwt.sign({ email }, config.jwtSecret, { expiresIn: "1h" });
-  res.status(200).json({ user: { email }, accessToken: token });
+  res.status(200).json({
+    statusCode: 200,
+    message: "Successfully Logged In User!",
+    user: { email },
+    accessToken: token,
+  });
 });

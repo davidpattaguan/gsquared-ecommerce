@@ -17,7 +17,9 @@ export const columns: ColumnDef<any>[] = [
     header: () => <div className="text-right">Id</div>,
     cell: ({ row }) => {
       return (
-        <div className="text-right font-medium">{row.original.product.id}</div>
+        <div className="text-right font-medium">
+          {row?.original?.product?.id}
+        </div>
       );
     },
   },
@@ -28,7 +30,7 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div className="text-right font-medium">
-          {row.original.product.name}
+          {row?.original?.product?.name}
         </div>
       );
     },
@@ -40,7 +42,7 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div className="text-right font-medium">
-          {row.original.product.price}
+          {row?.original?.product?.price}
         </div>
       );
     },

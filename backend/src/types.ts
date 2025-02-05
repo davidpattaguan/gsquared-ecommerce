@@ -10,6 +10,7 @@ export interface Product {
   imageUrl: string;
   manufacturer: string;
   isFeatured: boolean;
+  description: string;
 }
 
 export interface Order {

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,6 +29,7 @@ import { toast } from "sonner";
 import { closeModal } from "@/features/modalSlice";
 
 export default function LoginForm() {
+  const [loading, setLoading] = useState(false); // Track loading state
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>(); // Use AppDispatch
 
@@ -48,6 +49,7 @@ export default function LoginForm() {
   });
 
   async function onSubmit(values: z.infer<typeof LoginFormSchema>) {
+    setLoading(true); // Set loading state to true when the request starts
     dispatch(loginUser(values))
       .unwrap()
       .then(() => {
@@ -59,6 +61,9 @@ export default function LoginForm() {
         toast.error(() => <>Login Failed.</>, {
           description: () => <>{error.message}</>,
         });
+      })
+      .finally(() => {
+        setLoading(false); // Reset loading state when the request is finished
       });
   }
 
@@ -101,7 +106,9 @@ export default function LoginForm() {
             )}
           />
 
-          <Button type="submit">Login</Button>
+          <Button disabled={loading} type="submit">
+            {loading ? "Logging in..." : "Login"}
+          </Button>
         </form>
       </Form>
     </>

@@ -11,14 +11,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { DualRangeSlider } from "@/components/ui/dual-range-slider"; // Import your custom DualRangeSlider
+import { DualRangeSlider } from "@/components/ui/dual-range-slider";
 
 export function FilterSheet() {
   const navigate = useNavigate();
   const location = useLocation();
   const [filters, setFilters] = useState({
     manufacturer: "",
-    priceRange: [1, 200000], // Default range
+    priceRange: [1, 200000],
     name: "",
   });
 
@@ -58,14 +58,16 @@ export function FilterSheet() {
       <SheetTrigger asChild>
         <Button variant="outline">Filters</Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="sm:max-w-md">
         <SheetHeader>
-          <SheetTitle>Filter Products</SheetTitle>
+          <SheetTitle className="text-2xl font-bold mb-4">
+            Filter Products
+          </SheetTitle>
         </SheetHeader>
-        <div className="grid gap-4 py-4">
+        <div className="grid gap-6 py-6">
           {/* Manufacturer */}
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="manufacturer" className="text-right">
+          <div className="space-y-2">
+            <Label htmlFor="manufacturer" className="text-sm font-medium">
               Manufacturer
             </Label>
             <Input
@@ -73,28 +75,31 @@ export function FilterSheet() {
               name="manufacturer"
               value={filters.manufacturer}
               onChange={handleFilterChange}
-              className="col-span-3"
+              className="w-full"
             />
           </div>
 
           {/* Dual-Handle Price Slider */}
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label className="text-right">Price Range</Label>
-            <div className="col-span-3 flex flex-col gap-2">
-              <DualRangeSlider
-                label={(value) => `$${value}`} // Show price with $
-                value={filters.priceRange}
-                onValueChange={handlePriceChange}
-                min={1}
-                max={200000}
-                step={1}
-              />
+          <div className="space-y-2">
+            <Label className="text-sm font-medium">Price Range</Label>
+            <DualRangeSlider
+              label={(value) => `$${value.toLocaleString()}`}
+              value={filters.priceRange}
+              onValueChange={handlePriceChange}
+              min={1}
+              max={200000}
+              step={1}
+              className="py-4"
+            />
+            <div className="flex justify-between text-sm text-muted-foreground">
+              <span>${filters.priceRange[0].toLocaleString()}</span>
+              <span>${filters.priceRange[1].toLocaleString()}</span>
             </div>
           </div>
 
           {/* Name */}
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
+          <div className="space-y-2">
+            <Label htmlFor="name" className="text-sm font-medium">
               Name
             </Label>
             <Input
@@ -102,11 +107,11 @@ export function FilterSheet() {
               name="name"
               value={filters.name}
               onChange={handleFilterChange}
-              className="col-span-3"
+              className="w-full"
             />
           </div>
         </div>
-        <Button onClick={applyFilters} className="w-full">
+        <Button onClick={applyFilters} className="w-full mt-6">
           Apply Filters
         </Button>
       </SheetContent>

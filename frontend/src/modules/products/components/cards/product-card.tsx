@@ -9,7 +9,7 @@ type ProducCardProps = {
 
 const ProductCard = ({ product }: ProducCardProps) => {
   return (
-    <Card key={product.id} className="overflow-hidden">
+    <Card className="overflow-hidden">
       <img
         src={product.imageUrl || "/placeholder.svg"}
         alt={product.name}

@@ -34,7 +34,6 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/orders" element={<AllOrdersPage />} />
           <Route path="/products/:id/order" element={<OrderPage />} />
           <Route path="/stores" element={<StroesPage />} />
-          {/* <Route path="/orders" element={< />} /> */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
