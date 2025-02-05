@@ -81,6 +81,8 @@ This project consists of a backend API developed using Node.js and Express.js, a
 
 ## Setup Instructions
 
+### Installation
+
 ### Backend
 
 1. Clone the repository.
@@ -89,7 +91,7 @@ This project consists of a backend API developed using Node.js and Express.js, a
    ```bash
    npm install
    ```
-4. Create a `.env` file and add your sensitive data (e.g., JWT secret, Google Maps API key).
+4. Create a `.env` file in the root folder and add your sensitive data (e.g., JWT secret, Google Maps API key).
 5. Start the server:
    ```bash
    npm start
@@ -108,9 +110,27 @@ This project consists of a backend API developed using Node.js and Express.js, a
    npm start
    ```
 
-### Run Server using Concurrently
+## Run the server 2 ways
+
+## Via Concurrently
+
+## Separate Backend and Frontend serve
+
+### Running the Servers using Concurrently
 
 1. Go back to the root folder
+2. Install ts node
+
+```bash
+npm install -g ts-node
+```
+
+3. Install Nodemon
+
+```bash
+  npm i nodemon
+```
+
 2. Install dependencies:
    ```bash
    npm install
@@ -121,7 +141,7 @@ This project consists of a backend API developed using Node.js and Express.js, a
    npm run dev
    ```
 
-### OR: Run Backend and Frontend Independently
+### : Running the Backend and Frontend Independently
 
 1. Navigate to the `backend` folder.
 2. Run
@@ -136,22 +156,6 @@ This project consists of a backend API developed using Node.js and Express.js, a
    ```bash
    npm run dev
    ```
-
----
-
-## Testing
-
-- For backend unit tests, use Jest:
-  ```bash
-  npm run test
-  ```
-- For frontend, run tests using Jest or React Testing Library.
-
----
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
