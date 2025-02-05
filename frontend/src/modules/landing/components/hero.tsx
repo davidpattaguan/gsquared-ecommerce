@@ -3,8 +3,6 @@ import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router";
-import { useDispatch } from "react-redux";
-import { openModal } from "@/features/modalSlice";
 
 export default function Hero() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,7 +14,7 @@ export default function Hero() {
       navigate(`/products?name=${encodeURIComponent(searchTerm.trim())}`);
     }
   };
-  const dispatch = useDispatch();
+
   return (
     <section className="bg-muted py-20 text-center">
       <div className="container mx-auto px-4">

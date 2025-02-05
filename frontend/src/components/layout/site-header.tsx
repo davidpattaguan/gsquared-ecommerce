@@ -65,12 +65,21 @@ export function SiteHeader({ session }: SiteHeaderProps) {
                   </li>
                 </ul>
               ) : (
-                <Link
-                  to="/auth/login"
-                  className={cn(buttonVariants({ variant: "default" }))}
-                >
-                  Login
-                </Link>
+                <div className="flex gap-2">
+                  <Link
+                    to="/auth/login"
+                    className={cn(buttonVariants({ variant: "default" }))}
+                  >
+                    Login
+                  </Link>
+
+                  <Link
+                    to="/auth/registration"
+                    className={cn(buttonVariants({ variant: "default" }))}
+                  >
+                    Register
+                  </Link>
+                </div>
               )}
             </nav>
           </nav>

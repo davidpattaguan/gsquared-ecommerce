@@ -1,45 +1,16 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Star, MapPin } from "lucide-react";
 
-import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Shell } from "@/components/layout/shell";
 import { Button } from "@/components/ui/button";
 
 export default function NearbyCarStores({ carStores }: any) {
-  mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
   const [selectedStore, setSelectedStore] = useState<any | null>(null);
-  const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<mapboxgl.Map | null>(null);
 
-  //   useEffect(() => {
-  //     if (map.current) return; // initialize map only once
-  //     map.current = new mapboxgl.Map({
-  //       container: mapContainer.current!,
-  //       style: "mapbox://styles/mapbox/streets-v11",
-  //       center: [
-  //         carStores[0]?.geometry?.location?.lng || 12,
-  //         carStores[0]?.geometry?.location?.lat || 12,
-  //       ],
-  //       zoom: 13,
-  //     });
-
-  //     // Add markers for each store
-  //     carStores.forEach((store) => {
-  //       const marker = new mapboxgl.Marker()
-  //         .setLngLat([store.geometry.location.lng, store.geometry.location.lat])
-  //         .setPopup(
-  //           new mapboxgl.Popup().setHTML(
-  //             `<h3>${store.name}</h3><p>${store.vicinity}</p>`
-  //           )
-  //         )
-  //         .addTo(map.current!);
-  //     });
-  //   }, []);
-
-  const openGoogleMaps = (store: CarStore) => {
+  const openGoogleMaps = (store: any) => {
     const url = `https://www.google.com/maps/search/?api=1&query=${store.geometry.location.lat},${store.geometry.location.lng}`;
     window.open(url, "_blank");
   };
@@ -49,15 +20,9 @@ export default function NearbyCarStores({ carStores }: any) {
       {" "}
       <h1 className="text-3xl font-bold mb-6">Nearby Car Stores</h1>
       <div className="grid grid-cols-1 ">
-        {/* <div>
-          <div
-            ref={mapContainer}
-            className="h-[400px] rounded-lg shadow-md mb-6"
-          />
-        </div> */}
         <div className="">
           <div className="grid  md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {carStores.map((store, index) => (
+            {carStores.map((store: any, index: any) => (
               <div
                 key={index}
                 className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer transition-transform hover:scale-105"

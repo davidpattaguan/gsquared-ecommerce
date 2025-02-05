@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Shell } from "@/components/layout/shell";
@@ -20,14 +20,13 @@ const AllOrdersPage = () => {
     }
   }, []);
 
-  const dispatch = useDispatch<AppDispatch>(); // Use AppDispatch
+  const dispatch = useDispatch<AppDispatch>();
 
   const location = useLocation();
 
   useEffect(() => {
     dispatch(fetchOrders(location.search));
-  }, [location.search]); // Add location.search as a dependency
-
+  }, [location.search]);
   if (loading) {
     return <div className="col-span-full text-center py-10">Loading...</div>;
   }

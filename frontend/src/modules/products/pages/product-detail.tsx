@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router"; // Corrected import path
+import { Link, useParams } from "react-router";
 import { fetchProductById } from "../features/slices/products-slice";
-import { Badge } from "@/components/ui/badge";
 import { Battery, Calendar, Gauge, PenTool } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
@@ -48,13 +47,6 @@ const ProductDetail = () => {
           <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
             {product.name}
           </h1>
-
-          {/* <div className="mt-3 flex items-center">
-            <Badge variant="secondary" className="mr-2">
-              Acme
-            </Badge>
-            <Badge variant="outline">Midnight Blue</Badge>
-          </div> */}
 
           <div className="mt-3">
             <p className="text-3xl text-gray-900">${product.price}</p>

@@ -11,19 +11,7 @@ export type FormState =
     }
   | undefined;
 
-export const SignupFormSchema = z.object({
-  firstName: z
-    .string()
-    .min(2, {
-      message: "Name must be at least 2 characters long.",
-    })
-    .trim(),
-  lastName: z
-    .string()
-    .min(2, {
-      message: "Name must be at least 2 characters long.",
-    })
-    .trim(),
+export const RegistrationFormSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email." }).trim(),
   password: z
     .string()
@@ -46,5 +34,5 @@ export const LoginFormSchema = z.object({
     .min(8, { message: "Password must be at least 8 characters." }),
 });
 
-export type SignupFormType = z.infer<typeof SignupFormSchema>;
+export type RegistrationFormType = z.infer<typeof RegistrationFormSchema>;
 export type LoginFormType = z.infer<typeof LoginFormSchema>;

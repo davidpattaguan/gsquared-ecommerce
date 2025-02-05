@@ -14,7 +14,7 @@ export const siteConfig = {
   links,
   mainNav: [
     {
-      title: "Lobby",
+      title: "Menu",
       items: [
         {
           title: "Cars",

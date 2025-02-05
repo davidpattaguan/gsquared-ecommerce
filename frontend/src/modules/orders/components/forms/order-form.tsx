@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,11 +21,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/store/store";
-import { useParams } from "react-router";
-import { useEffect } from "react";
-import { fetchProductById } from "@/modules/products/features/slices/products-slice";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -83,10 +77,9 @@ export default function OrderFormWithImage() {
             Your Company Name
           </div>
           <div className="relative h-48 lg:h-auto lg:flex-grow">
-            <Image
+            <img
               src="/placeholder.svg?height=400&width=800"
               alt="Product Image"
-              layout="fill"
               objectFit="cover"
               className="rounded-lg"
             />

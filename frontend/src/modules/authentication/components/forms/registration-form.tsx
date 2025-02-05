@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,49 +20,49 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { AppDispatch, RootState } from "@/store/store";
 import {
-  LoginFormSchema,
-  LoginFormType,
+  RegistrationFormSchema,
+  RegistrationFormType,
 } from "../../schemas/authentication-schema";
-import { loginUser } from "../../features/slices/auth-slice";
+import { registerUser } from "../../features/slices/auth-slice";
 import { toast } from "sonner";
 import { closeModal } from "@/features/modalSlice";
 
-export default function LoginForm() {
+export default function RegistrationForm() {
   const [loading, setLoading] = useState(false); // Track loading state
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>(); // Use AppDispatch
-
   const session = useSelector((state: RootState) => state.auth.session);
   useEffect(() => {
     if (session !== null) {
-      navigate("/"); // Redirect to the home page
+      navigate("/");
     }
   }, [session, navigate]);
 
-  const form = useForm<LoginFormType>({
-    resolver: zodResolver(LoginFormSchema),
+  const form = useForm<RegistrationFormType>({
+    resolver: zodResolver(RegistrationFormSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  async function onSubmit(values: z.infer<typeof LoginFormSchema>) {
-    setLoading(true); // Set loading state to true when the request starts
-    dispatch(loginUser(values))
+  async function onSubmit(values: RegistrationFormType) {
+    setLoading(true);
+    dispatch(registerUser(values))
       .unwrap()
       .then(() => {
-        toast("Successfully Logged In!");
+        toast("Successfully Registered an Account - Redirecting To Login Page");
         dispatch(closeModal());
+        navigate("/auth/login");
       })
       .catch((error: any) => {
         console.log(error, "sa form");
-        toast.error(() => <>Login Failed.</>, {
+        toast.error(() => <>Registration Failed.</>, {
           description: () => <>{error.message}</>,
         });
       })
       .finally(() => {
-        setLoading(false); // Reset loading state when the request is finished
+        setLoading(false);
       });
   }
 

@@ -49,6 +49,7 @@ export const fetchOrders = createAsyncThunk<
   string | undefined,
   { state: RootState }
 >("products/fetchProducts", async (queryString = "", { getState }) => {
+  console.log(queryString);
   const state = getState();
   const accessToken = state.auth.session?.accessToken; // Adjust this based on your auth state structure
 

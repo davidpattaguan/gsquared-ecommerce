@@ -1,37 +1,9 @@
+import { Product, ProductsResponse, ProductsState } from "@/types";
 import {
   createAsyncThunk,
   createSlice,
   type PayloadAction,
 } from "@reduxjs/toolkit";
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-  manufacturer: string;
-}
-
-interface PaginationInfo {
-  currentPage: number;
-  totalPages: number;
-  totalResults: number;
-}
-
-interface ProductsResponse {
-  statusCode: number;
-  message: string;
-  result: Product[];
-  pagination: PaginationInfo;
-}
-
-interface ProductsState {
-  products: Product[];
-  product: Product | null; // Fixed type
-  pagination: PaginationInfo;
-  loading: boolean;
-  error: string | null;
-}
 
 const initialState: ProductsState = {
   products: [],

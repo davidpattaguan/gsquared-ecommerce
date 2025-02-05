@@ -13,7 +13,7 @@ import LoginForm from "../forms/login-form";
 
 export const LoginModal = () => {
   const dispatch = useDispatch();
-  const { isOpen, type, data } = useSelector((state: RootState) => state.modal);
+  const { isOpen, type } = useSelector((state: RootState) => state.modal);
 
   if (!isOpen) return null;
 

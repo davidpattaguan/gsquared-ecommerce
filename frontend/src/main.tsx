@@ -17,6 +17,7 @@ import { ModalProvider } from "./components/providers/modal-provider.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";
 import LogoutPage from "./modules/authentication/pages/logout-page.tsx";
 import AllOrdersPage from "./modules/orders/pages/all-orders-page.tsx";
+import RegistrationPage from "./modules/authentication/pages/registration-page.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -28,6 +29,7 @@ createRoot(document.getElementById("root")!).render(
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/auth/login" element={<LoginPage />} />
+          <Route path="/auth/registration" element={<RegistrationPage />} />
           <Route path="/auth/logout" element={<LogoutPage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/:id" element={<ProductDetail />} />

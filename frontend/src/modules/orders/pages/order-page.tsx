@@ -81,6 +81,8 @@ export default function OrderFormWithImage() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const productId = Number(id);
 
+    console.log(values);
+
     if (isNaN(productId)) {
       toast.error("Invalid product ID");
       return;
@@ -119,7 +121,7 @@ export default function OrderFormWithImage() {
       <div className="flex-1 bg-zinc-900 text-white p-8 lg:p-12">
         <div className="h-full flex flex-col justify-between">
           <div className="flex items-center text-lg font-medium mb-8">
-            {product.name}
+            {product.name} - ${product.price}
           </div>
           <div className="relative h-48 lg:h-auto lg:flex-grow">
             <img

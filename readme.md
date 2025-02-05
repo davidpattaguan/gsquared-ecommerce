@@ -54,6 +54,7 @@ This project consists of a backend API developed using Node.js and Express.js, a
 
 ### Features
 
+- Added a registration form as well
 - Shadcn Components: A component library for building flexible and customizable UI components in React.
 - Tailwind CSS: A utility-first CSS framework for rapidly building custom designs.
 - Fetch API: A modern way to make HTTP requests in JavaScript for fetching resources.

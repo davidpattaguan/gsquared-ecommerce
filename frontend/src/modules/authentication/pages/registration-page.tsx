@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 
 import { Link, useNavigate } from "react-router";
 import { RootState } from "@/store/store";
-import LoginForm from "../components/forms/login-form";
+import RegistrationForm from "../components/forms/registration-form";
 
-export default function MyForm() {
+export default function RegistrationPage() {
   const session = useSelector((state: RootState) => state.auth.session);
   const navigate = useNavigate();
 
@@ -24,20 +24,17 @@ export default function MyForm() {
           <div className="w-full max-w-xs">
             <div>
               <div className="flex flex-col items-center gap-2 text-center mb-5">
-                <h1 className="text-2xl font-bold">Login to your account</h1>
+                <h1 className="text-2xl font-bold">Register for an account</h1>
                 <p className="text-balance text-sm text-muted-foreground">
-                  Enter your email below to login to your account
+                  Enter your details below to login to your account
                 </p>
               </div>
-              <LoginForm />
+              <RegistrationForm />
 
               <div className="text-center text-sm mt-5">
-                Don&apos;t have an account?{" "}
-                <Link
-                  to="/auth/registration"
-                  className="underline underline-offset-4"
-                >
-                  Register
+                Already have an account?{" "}
+                <Link to="/auth/login" className="underline underline-offset-4">
+                  Log In
                 </Link>
               </div>
             </div>

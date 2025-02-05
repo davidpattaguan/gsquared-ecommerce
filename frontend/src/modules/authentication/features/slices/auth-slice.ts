@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
@@ -17,15 +16,12 @@ export const loginUser = createAsyncThunk(
       });
 
       if (!response.ok) {
-        // Try to extract error message from response body
         let errorMessage = "Failed to login";
         try {
           const errorData = await response.json();
           console.log(errorData.message);
           errorMessage = errorData.message || errorData.error || errorMessage;
-        } catch {
-          // If JSON parsing fails, use default error message
-        }
+        } catch {}
         throw new Error(errorMessage);
       }
 
@@ -34,7 +30,7 @@ export const loginUser = createAsyncThunk(
       const sessionData = {
         user: data.user,
         accessToken: data.accessToken,
-        expiry: new Date().getTime() + 3600000, // Expires in 1 hour
+        expiry: new Date().getTime() + 3600000,
       };
 
       sessionStorage.setItem("session", JSON.stringify(sessionData));
@@ -46,17 +42,56 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-const initialState = (() => {
-  const storedSession = sessionStorage.getItem("session");
-  if (storedSession) {
-    const parsedSession = JSON.parse(storedSession);
-    if (parsedSession.expiry > new Date().getTime()) {
-      return { session: parsedSession, loading: false, error: null };
+export const registerUser = createAsyncThunk(
+  "auth/registerUser",
+  async (
+    credentials: { email: string; password: string },
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/v1/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(credentials),
+        }
+      );
+
+      if (!response.ok) {
+        let errorMessage = "Failed to register";
+        try {
+          const errorData = await response.json();
+          console.log(errorData.message);
+          errorMessage = errorData.message || errorData.error || errorMessage;
+        } catch {}
+        throw new Error(errorMessage);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error instanceof Error ? error : "Registration failed"
+      );
     }
   }
-  sessionStorage.removeItem("session");
-  return { session: null, loading: false, error: null };
-})();
+);
+
+const initialState: { session: any; loading: boolean; error: string | null } =
+  (() => {
+    const storedSession = sessionStorage.getItem("session");
+    if (storedSession) {
+      const parsedSession = JSON.parse(storedSession);
+      if (parsedSession.expiry > new Date().getTime()) {
+        return { session: parsedSession, loading: false, error: null };
+      }
+    }
+    sessionStorage.removeItem("session");
+    return { session: null, loading: false, error: null };
+  })();
 
 const authSlice = createSlice({
   name: "auth",
@@ -75,11 +110,22 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.session = action.payload; // Store user and accessToken in Redux state
+        state.session = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload as string;
+      })
+      .addCase(registerUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(registerUser.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
       });
   },
 });

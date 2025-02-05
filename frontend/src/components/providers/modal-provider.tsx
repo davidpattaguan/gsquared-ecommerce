@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { TestModal } from "../test-modal";
 import { LoginModal } from "@/modules/authentication/components/modals/login-modal";
 
 export const ModalProvider = () => {
@@ -18,7 +17,6 @@ export const ModalProvider = () => {
   return (
     <>
       <LoginModal />
-      <TestModal />
     </>
   );
 };

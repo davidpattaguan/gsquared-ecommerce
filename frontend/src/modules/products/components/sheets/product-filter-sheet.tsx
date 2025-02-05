@@ -12,6 +12,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { DualRangeSlider } from "@/components/ui/dual-range-slider";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Filter } from "lucide-react";
 
 export function FilterSheet() {
   const navigate = useNavigate();
@@ -38,6 +46,10 @@ export function FilterSheet() {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
+  const handleManufacturerChange = (value: string) => {
+    setFilters({ ...filters, manufacturer: value });
+  };
+
   const handlePriceChange = (value: number[]) => {
     setFilters((prev) => ({ ...prev, priceRange: value }));
   };
@@ -56,7 +68,9 @@ export function FilterSheet() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Filters</Button>
+        <Button variant="outline">
+          <Filter /> Open Filters
+        </Button>
       </SheetTrigger>
       <SheetContent className="sm:max-w-md">
         <SheetHeader>
@@ -65,25 +79,45 @@ export function FilterSheet() {
           </SheetTitle>
         </SheetHeader>
         <div className="grid gap-6 py-6">
-          {/* Manufacturer */}
+          {/* Name */}
+          <div className="space-y-2">
+            <Label htmlFor="name" className="text-sm font-medium">
+              Name of Car
+            </Label>
+            <Input
+              id="name"
+              name="name"
+              value={filters.name}
+              onChange={handleFilterChange}
+              className="w-full"
+            />
+          </div>
+          {/* Manufacturer Dropdown */}
           <div className="space-y-2">
             <Label htmlFor="manufacturer" className="text-sm font-medium">
               Manufacturer
             </Label>
-            <Input
-              id="manufacturer"
-              name="manufacturer"
+            <Select
               value={filters.manufacturer}
-              onChange={handleFilterChange}
-              className="w-full"
-            />
+              onValueChange={handleManufacturerChange}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select manufacturer" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="honda">Honda</SelectItem>
+                <SelectItem value="tesla">Tesla</SelectItem>
+                <SelectItem value="toyota">Toyota</SelectItem>
+                <SelectItem value="ford">Ford</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Dual-Handle Price Slider */}
           <div className="space-y-2">
             <Label className="text-sm font-medium">Price Range</Label>
             <DualRangeSlider
-              label={(value) => `$${value.toLocaleString()}`}
+              label={(value: any) => `$${value.toLocaleString()}`}
               value={filters.priceRange}
               onValueChange={handlePriceChange}
               min={1}
@@ -95,20 +129,6 @@ export function FilterSheet() {
               <span>${filters.priceRange[0].toLocaleString()}</span>
               <span>${filters.priceRange[1].toLocaleString()}</span>
             </div>
-          </div>
-
-          {/* Name */}
-          <div className="space-y-2">
-            <Label htmlFor="name" className="text-sm font-medium">
-              Name
-            </Label>
-            <Input
-              id="name"
-              name="name"
-              value={filters.name}
-              onChange={handleFilterChange}
-              className="w-full"
-            />
           </div>
         </div>
         <Button onClick={applyFilters} className="w-full mt-6">

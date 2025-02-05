@@ -8,7 +8,9 @@ const orders: Order[] = [];
 
 export const createOrder = CatchAsync(
   async (req: AuthenticatedRequest, res: Response) => {
-    const { productId, quantity } = req.body;
+    const { productId, paymentMethod, phone, name } = req.body;
+
+    console.log(req.body);
 
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized" });
@@ -23,7 +25,9 @@ export const createOrder = CatchAsync(
     const newOrder: Order = {
       user: req.user.email,
       productId,
-      quantity,
+      paymentMethod,
+      phone,
+      name,
     };
 
     orders.push(newOrder);
@@ -36,8 +40,9 @@ export const createOrder = CatchAsync(
 export const getOrders = CatchAsync(async (req: Request, res: Response) => {
   const populatedOrders = orders.map((order) => {
     const product = products.find((p) => p.id === order.productId);
+    console.log(order);
     return {
-      user: order.user,
+      order: order,
       product: product
         ? {
             id: product.id,
