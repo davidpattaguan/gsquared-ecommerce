@@ -8,6 +8,8 @@
 
 This project consists of a backend API developed using Node.js and Express.js, and a frontend application built with React.js. The backend provides user authentication, product listings, and order management, while the frontend displays the product listings, allows users to log in, place orders, and locate stores.
 
+no database, all in memory.
+
 ---
 
 ## Backend - Node.js (Express API)
@@ -204,3 +206,5 @@ This document provides an overview of the routes available in the application.
 
 - Thanks to [Google Maps API](https://developers.google.com/maps) for providing the store locator functionality.
 - Thanks to the community for their open-source contributions to React, Express, and other tools used in this project.
+
+
